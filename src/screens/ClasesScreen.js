@@ -1,0 +1,40 @@
+import React, { useState,  useEffect} from 'react';
+import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
+import EtiquetaNivel from './EtiquetaNivel';
+import { colors, radius, spacing, typograhy} from '../theme';
+import { formatearPrecio, CLASES } from '../data/clases';
+
+export default function ClasesScreen ({ navigation }){
+    const [nivel, setNivel] = useState()
+    const [busqueda, setBusqueda] = useState('')
+
+    return(
+        <View>
+            <Text> Aplicación para clases de ingles </Text>
+            <Ionicons name="search" size={18} color={colors.textoSuave}/>
+            <TextInput
+                style={}
+                placeholder = "Buscar por nivel"
+                value = {nivel}
+                onChangetext= {setNivel}
+                autoCorrect={false} 
+            />
+            */ funcion de busquedad, condicional  */
+            {
+                busqueda.length > 0 && (
+                    <Ionicons
+                        name='close-circle'
+                        size={18}
+                        color={colors.textoSuave}
+                        onPress={()=> setBusqueda('')}
+                    />
+                )
+
+
+            }
+        </View>
+    )
+
+}
