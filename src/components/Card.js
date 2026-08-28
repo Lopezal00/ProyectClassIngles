@@ -25,3 +25,4 @@ export default function Card({clase, onPress}){
             </Pressable>
     )
 }
+
