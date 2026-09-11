@@ -1,18 +1,19 @@
 import React, { useState,  useMemo} from 'react';
 import { View, Text, Image, Pressable, StyleSheet, TextInput, ScrollView, FlatList } from 'react-native';
-
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-
 import EtiquetaNivel from '../components/EtiquetaNivel';
 import Card from '../components/Card';
 import NivelChip from '../components/NivelChip';
+import EstadoVacio from '../components/EstadoVacio';
 import useResponsive from '../hooks/useResponsive';
+
 import { colors, radius, spacing, typography} from '../theme';
 import { formatearPrecio, CLASES, NIVELES } from '../data/clases';
 
 export default function ClasesScreen ({ navigation }){
     const insets = useSafeAreaInsets();
+
     const [nivel, setNivel] = useState()
     const {columnas , paddingHorizontal} = useResponsive()
     const [busqueda, setBusqueda] = useState('')
@@ -72,24 +73,38 @@ export default function ClasesScreen ({ navigation }){
             <FlatList 
                 data = {resultados}
                 keyExtractor={(item) => item.id}
-                renderItem={({item})=>{
+                renderItem={({item})=>(
                     <Card 
                         clase={item}
                         onPress={()=> navigation.navigate('DetalleClase', {clase:item})}
                     />
                     
-                }}
+                )}
                 showsVerticalScrollIndicator = {false}
                 contentContainerStyle = {{
                     paddingHorizontal:12,
                     flexGrow: 1
                 }}
+                numColumns={ columnas }
+                ListEmptyComponent={ 
+                    <EstadoVacio 
+                        icono="search-outline"
+                        titulo="No encontramos resultados"
+                        mensaje="La combinacion de busqueda no tiene resultados"
+                        onAction={()=>{
+                            setNivel('Todos');
+                            setBusqueda('');
+                        }}
+                    />
+                
+                
+                }
             />
             
         </View>
     )
 
-}
+};
 
 const style = StyleSheet.create({
   pantalla: { flex: 1, backgroundColor: colors.fondo },
