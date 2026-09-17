@@ -15,9 +15,9 @@ export default function ClasesStack(){
             }}
         >
             <Stack.Screen
-                name= "Home"
+                name="Home"
                 component={ClasesScreen}
-                option = {{headerShow: false}}            
+                options={{ headerShown: false }}
             />
             <Stack.Screen 
                 name = "DetalleClase"
